@@ -7,14 +7,14 @@ class PartyPlanner {
 	addToGuestList = (name) => this.guestList.push(name);
 
 	throwParty = () => {
-		return this.guestList.length > 0 ? `Welcome to the party ${makeString(this.guestList)}` : "Gotta add people to the guest list";
+		return this.guestList.length > 0 ? `Welcome to the party ${makeString.call(this)}` : "Gotta add people to the guest list";
 	}
 }
 
-function makeString (arr) {
+function makeString() {
 	const result = [];
-	arr.forEach((element, index) => {
-		if (index !== arr.length - 1) {
+	this.guestList.forEach((element, index) => {
+		if (index !== this.guestList.length - 1) {
 			result.push(element + ' and')
 		} else {
 			result.push(element);
@@ -23,6 +23,16 @@ function makeString (arr) {
 
 	return result.join(' ');
 }
+
+const party = new PartyPlanner();
+
+console.log(party.throwParty()); // prints "Gotta add people to the guest list"
+
+party.addToGuestList("James");
+console.log(party.throwParty()); // prints "Welcome to the party James"
+
+party.addToGuestList("Alvin");
+console.log(party.throwParty()); // prints "Welcome to the party James and Alvin"
 /*****************************************************************************/
 /***************** DO NOT MODIFY ANYTHING UNDER THIS LINE ********************/
 
